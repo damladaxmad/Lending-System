@@ -1,7 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
 import DeleteIcon from "@material-ui/icons/Delete";
-import MyContext from "../context-api/my-context";
 import {
   Portal,
   Button,
@@ -12,42 +10,35 @@ import {
   Avatar,
   ListItemIcon,
 } from "@material-ui/core";
-import { useSelector, useDispatch, } from "react-redux";
-import { PersonalVideo } from "@material-ui/icons";
+import db from "../store/firebase.confing"
+// import { doc, getDoc } from "firebase/firestore";
+import {onSnapshot, collection, setDoc, doc} from "firebase/firestore"
 
 const Details = (props) => {
+  const [data, setData] = useState({
+    name: "Xasno Ali",
+    number: "061661677",
+    total: "6767"
+  })
+  if (props.value !== ""){
+    setData(props.value)
+    console.log(props.value)
+  }
+  // useEffect(()=>{
+  //   onSnapshot(collection(db, "customers"), (snapshot)=>{
+  //     const data = snapshot.docs.map(doc => doc.data())
+  //     data.map(dictum => {
+  //       if (dictum.name === name){
+  //         console.log(dictum)
+  //         setData(dictum)
+  //       }
+  //     }
+  //       )
+  //     // setData(data)
+  //   })
+  // }, [name])
   const [show, setShow] = useState(false);
   const [lends, setLends] = useState([])
-
-  //saving prop values
-  const avatarIcon = props.value.name;
-  const name = props.value.name;
-  const number = props.value.number;
-  const money = props.value.money;
-
-  useEffect(()=>{
-    const fetchCustomers = async () =>{
-      const response = await fetch('https://lending-b64d6-default-rtdb.firebaseio.com/customers.json')
-    const responseData = await response.json()
-    const loadedLend = []
-
-    for (const key in responseData){
-      if (responseData[key].id === props.value.id){
-      for (const data in responseData[key].lend){
-        loadedLend.push({
-          lendMoney: responseData[key].lend[data].money,
-          lendDesc: responseData[key].lend[data].description,
-          lendDate: responseData[key].lend[data].date
-        })
-      }
-    }
-    
-    }
-    setLends(loadedLend)
-    }
-   
-    fetchCustomers()
-  }, [props.value.id, lends])
 
   return (
     <div
@@ -78,16 +69,16 @@ const Details = (props) => {
                   fontSize: "22px",
                 }}
               >
-                {avatarIcon === "" ? "U" : avatarIcon[0].toUpperCase()}
+                {data.name[0].toUpperCase()}
               </Avatar>
               <ListItemText
-                primary={name === "" ? "Unknown" : name}
-                secondary={number === "" ? "Here Shows Number" : number}
+                primary={data.name}
+                secondary={data.number}
                 style={{ fontWeight: "bold" }}
               />
               <ListItemIcon>
                 {" "}
-                <Amount amount={money === "" ? "000" : money} />{" "}
+                <Amount amount={data.total} />{" "}
               </ListItemIcon>
             </ListItem>
           </List>
@@ -109,7 +100,7 @@ const Details = (props) => {
             //   boxShadow: "0 1px 8px rgba(0, 0, 0, 0.5)"
           }}
         >
-       {lends && <List
+       {/* {lends && <List
             style={{ marginLeft: "0px" }}
             onClick={(e) => console.log("list pressed")}
           >
@@ -143,7 +134,7 @@ const Details = (props) => {
                 </ListItemIcon>
               </ListItem>
             ))}
-          </List>}
+          </List>} */}
         </div>
 
         <Button

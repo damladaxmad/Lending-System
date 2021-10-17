@@ -32,18 +32,18 @@ const CustomerList = (props) => {
       setData(data)
     })
 
-    setDoc(doc(db, "customers", "shhh"), {
-      name: "Dameer Ahmed",
-      number: 8888888,
-      total: 678
+    setDoc(doc(db, "customers", "last"), {
+      name: "Jakab Jukub",
+      number: 5555555,
+      total: 787
     });
   })
 
   const addCustomer = () => {
-    setDoc(doc(db, "customers", "hhh"), {
-      name: "Laameer",
-      number: 99999,
-      total: 787
+    setDoc(doc(db, "customers", "added"), {
+      name: "Qalbi Xaaran",
+      number: 444455,
+      total: 444
     });
    
   }
@@ -69,9 +69,10 @@ const CustomerList = (props) => {
       >
         <List style = {{cursor: "pointer"}} >
           {data.map((cst) => (
-            <ListItem key = {cst.id} >
+            <ListItem key = {cst.id} onClick = {() => props.giveDetails(cst)}>
               <Avatar
                 style={{ backgroundColor: "#041E42", marginRight: "12px" }}
+                
               >
               {cst.name[0].toUpperCase()}
               </Avatar>
@@ -97,5 +98,4 @@ const Amount = (props) =>{
         color: "white"
     }}> ${props.amount}</div>
 }
-
 export default CustomerList;

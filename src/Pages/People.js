@@ -5,13 +5,7 @@ import Details from '../Componants/Details';
 import PopupForm from '../Componants/PopupForm';
 const People = (props) =>{
 
-    const [details, setDetails] = useState({
-        name: "",
-        number: "",
-        money: "",
-        description: [],
-        date: ""
-    })
+    let details = {}
 
     const [newLend, setNewLend] = useState([])
     const [show, setShow] = useState(false)
@@ -23,13 +17,9 @@ const People = (props) =>{
         setShow(false)
     }
     const handleDetails = (details) =>{
-        setDetails({
-            name: details.name,
-            number: details.number,
-            money: details.money,
-            description: details.lend,
-            id: details.id
-        })
+        console.log("details")
+        details = details
+        console.log(details)
     }
 
     const addLend = (newLend) =>{
